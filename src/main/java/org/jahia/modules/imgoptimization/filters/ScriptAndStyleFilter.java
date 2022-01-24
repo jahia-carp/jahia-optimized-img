@@ -21,7 +21,7 @@
  *
  * ==========================================================================================
  */
-package org.jahia.modules.imgotpimization.filters;
+package org.jahia.modules.imgoptimization.filters;
 
 import org.jahia.services.render.RenderContext;
 import org.jahia.services.render.Resource;

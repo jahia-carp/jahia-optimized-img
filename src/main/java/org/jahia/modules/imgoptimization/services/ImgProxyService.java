@@ -21,7 +21,7 @@
  *
  * ==========================================================================================
  */
-package org.jahia.modules.imgotpimization.services;
+package org.jahia.modules.imgoptimization.services;
 
 /**
  * Short description of the class
@@ -42,12 +42,14 @@ public interface ImgProxyService {
      * @param imgPath (mandatory)
      * @param imgSize (mandatory)
      * @param imgConvert (mandatory)
+     * @param currentBaseUrl (mandatory)
      * @return unsigned url for imgProxy.
      */
     String generateUnsignedUrlForImgProxy(
             String imgPath,
             String imgSize,
-            String imgConvert
+            String imgConvert,
+            String currentBaseUrl
     );
 
     /**
@@ -55,13 +57,15 @@ public interface ImgProxyService {
      * @param imgPath (mandatory)
      * @param imgSize (mandatory)
      * @param imgConvert (mandatory)
+     * @param currentBaseUrl (mandatory)
      * @throws Exception if something wrong during the hash
      * @return signed url for imgProxy.
      */
     String generateSignedUrlForImgProxy(
             String imgPath,
             String imgSize,
-            String imgConvert
+            String imgConvert,
+            String currentBaseUrl
     ) throws Exception;
 
 }

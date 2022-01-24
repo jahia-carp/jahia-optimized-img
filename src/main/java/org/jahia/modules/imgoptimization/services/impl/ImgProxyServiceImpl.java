@@ -21,10 +21,10 @@
  *
  * ==========================================================================================
  */
-package org.jahia.modules.imgotpimization.services.impl;
+package org.jahia.modules.imgoptimization.services.impl;
 
-import org.jahia.modules.imgotpimization.services.ImgProxyService;
-import org.jahia.modules.imgotpimization.services.JahiaOptimizedImgConstants;
+import org.jahia.modules.imgoptimization.services.ImgProxyService;
+import org.jahia.modules.imgoptimization.services.JahiaOptimizedImgConstants;
 import org.jahia.services.notification.HttpClientService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -56,7 +56,7 @@ public class ImgProxyServiceImpl implements ImgProxyService {
         return httpClientService.executeGet(url);
     }
 
-    public String generateUnsignedUrlForImgProxy(String imgPath, String imgSize, String imgConvert) {
+    public String generateUnsignedUrlForImgProxy(String imgPath, String imgSize, String imgConvert, String currentBaseUrl) {
 
         String url = "";
 
@@ -69,13 +69,13 @@ public class ImgProxyServiceImpl implements ImgProxyService {
         if (imgPath.startsWith("http")) {
             url = JahiaOptimizedImgConstants.IMGPROXY_UNSIGNED_BASE_URL + "/resize:fit:" + imgSize + ":0:0/plain/" + imgPath + imgConvert;
         } else {
-            url = JahiaOptimizedImgConstants.IMGPROXY_UNSIGNED_BASE_URL + "/resize:fit:" + imgSize + ":0:0/plain/" + JahiaOptimizedImgConstants.LOCAL_URL + imgPath + imgConvert;
+            url = JahiaOptimizedImgConstants.IMGPROXY_UNSIGNED_BASE_URL + "/resize:fit:" + imgSize + ":0:0/plain/" + currentBaseUrl + imgPath + imgConvert;
         }
 
         return url;
     }
 
-    public String generateSignedUrlForImgProxy(String imgPath, String imgSize, String imgConvert) throws Exception {
+    public String generateSignedUrlForImgProxy(String imgPath, String imgSize, String imgConvert, String currentBaseUrl) throws Exception {
 
         String url = "";
         String path = "";
@@ -89,7 +89,7 @@ public class ImgProxyServiceImpl implements ImgProxyService {
         if (imgPath.startsWith("http")) {
             path = "/resize:fit:" + imgSize + ":0:0/plain/" + imgPath + imgConvert;
         } else {
-            path = "/resize:fit:" + imgSize + ":0:0/plain/" + JahiaOptimizedImgConstants.LOCAL_URL + imgPath + imgConvert;
+            path = "/resize:fit:" + imgSize + ":0:0/plain/" + currentBaseUrl + imgPath + imgConvert;
         }
 
         Mac sha256HMAC = Mac.getInstance(HMACSHA256);

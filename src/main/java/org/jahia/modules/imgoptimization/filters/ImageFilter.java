@@ -1,6 +1,6 @@
-package org.jahia.modules.imgotpimization.filters;
+package org.jahia.modules.imgoptimization.filters;
 
-import org.jahia.modules.imgotpimization.services.JahiaOptimizedImgConstants;
+import org.jahia.modules.imgoptimization.services.JahiaOptimizedImgConstants;
 import org.jahia.services.render.RenderContext;
 import org.jahia.services.render.Resource;
 import org.jahia.services.render.filter.AbstractFilter;

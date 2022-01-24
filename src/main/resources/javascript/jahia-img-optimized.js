@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     let imgPath = image.getAttribute('data-path');
 
                     if (imgWidthCeil >= 100) {
-                        let imageSrc = window.location.origin + '/modules/ImageSecureUrl?path='+ imgPath  + '&size=' + imgWidthCeil + '&convert=' + JahiaImageOptimized.Tools.canUseWebP();
+                        let imageSrc = window.location.origin + '/modules/ImageSecureUrl?path='+ imgPath  + '&size=' + imgWidthCeil + '&convert=' + canUseWebP;
                         image.setAttribute('data-src', imageSrc);
                     } else {
                         image.setAttribute('data-src', imgPath);
@@ -27,8 +27,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
                     // Update src with image path on error
                     image.addEventListener('error', function(){
-                        //image.setAttribute('data-src', 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=');
-                        //image.classList.add('jahia-img-broken');
                         image.setAttribute('src', imgPath);
                     });
 
@@ -63,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     };
 
+    const canUseWebP = JahiaImageOptimized.Tools.canUseWebP();
     JahiaImageOptimized.Optimization.init();
     
 });

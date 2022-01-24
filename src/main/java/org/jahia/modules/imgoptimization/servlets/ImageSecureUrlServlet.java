@@ -21,10 +21,10 @@
  *
  * ==========================================================================================
  */
-package org.jahia.modules.imgotpimization.servlets;
+package org.jahia.modules.imgoptimization.servlets;
 import org.apache.commons.lang.StringUtils;
-import org.jahia.modules.imgotpimization.services.ImgProxyService;
-import org.jahia.modules.imgotpimization.services.JahiaOptimizedImgConstants;
+import org.jahia.modules.imgoptimization.services.ImgProxyService;
+import org.jahia.modules.imgoptimization.services.JahiaOptimizedImgConstants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
+import java.net.URI;
 import java.util.stream.Stream;
 
 /**
@@ -66,10 +67,13 @@ public class ImageSecureUrlServlet extends HttpServlet {
             return;
         }
 
+        URI baseUri = URI.create(request.getRequestURL().toString());
+        String currentBaseUrl = baseUri.getScheme() + "://" + baseUri.getHost() + (baseUri.getPort() > 0 ? (":" + baseUri.getPort()) : "");
+
         if (JahiaOptimizedImgConstants.IMGPROXY_SIGNED_URL_ENABLED) {
 
             try {
-                url = imgProxyService.generateSignedUrlForImgProxy(imgPath, imgSize, imgConvert);
+                url = imgProxyService.generateSignedUrlForImgProxy(imgPath, imgSize, imgConvert, currentBaseUrl);
                 logger.info("SIGNED URL: {}", url);
             } catch (Exception e) {
                 logger.error(String.valueOf(e));
@@ -77,7 +81,7 @@ public class ImageSecureUrlServlet extends HttpServlet {
 
         } else {
 
-            url = imgProxyService.generateUnsignedUrlForImgProxy(imgPath, imgSize, imgConvert);
+            url = imgProxyService.generateUnsignedUrlForImgProxy(imgPath, imgSize, imgConvert, currentBaseUrl);
 
         }
 
